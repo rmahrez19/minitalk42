@@ -6,7 +6,7 @@
 /*   By: ramahrez <ramahrez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:39:35 by ramahrez          #+#    #+#             */
-/*   Updated: 2025/02/24 22:15:50 by ramahrez         ###   ########.fr       */
+/*   Updated: 2025/02/24 22:34:29 by ramahrez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int main(void)
 			sig = -1;
 			i++;
 		}
-		if(i == 8)
+		if(i == 9)
 		{
+			// printf("%s\n", tab);
 			c = ft_atoi_base(tab, "01");
 			write(1, &c, 1);
 			i = 0;
@@ -81,3 +82,9 @@ int main(void)
 		// printf("%d", sig);
 	}
 }
+
+
+// int main(void)
+// {
+// 	printf("%d", ft_atoi_base("11001", "01"));
+// }
