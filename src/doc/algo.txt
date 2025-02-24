@@ -1,0 +1,56 @@
+touver le pid du procesus ou on souhaite envoyer le signal
+
+getpid() et getppid() (fonctions en C)
+
+    getpid(): Retourne le PID du processus appelant.
+    getppid(): Retourne le PID du parent du processus appelant.
+    Ces fonctions font partie de la bibliothèque standard en C (unistd.h).
+
+
+int kill(pid_t pid, int sig);
+
+
+    pid : l’identifiant du processus ou du groupe de processus auquel envoyer le signal. On peut ici spécifier :
+        un entier positif : le PID d’un processus,
+        un entier négatif : le PGID d’un groupe de processus,
+        0 : tous les processus dans le groupe du processus appelant,
+        -1 : tous les processus dans le système pour lequel le processus appelant a la permission d’envoyer un signal (sauf le processus 1, init). Voir la page de manuel kill (2) pour la question des permissions.
+    sig : le signal à envoyer au processus.
+
+La fonction kill renvoie 0 en cas de succès et en cas d’erreur, -1,
+
+
+
+🔹 Client (client.c)
+
+    Il récupère le PID du serveur en argument.
+    Il convertit chaque caractère du message en bits.
+    Il envoie un signal SIGUSR1 ou SIGUSR2 au serveur pour chaque bit :
+        SIGUSR1 → bit 0
+        SIGUSR2 → bit 1
+    Il attend éventuellement une confirmation du serveur avant d’envoyer le bit suivant.
+
+🔹 Serveur (server.c)
+
+    Il écoute les signaux SIGUSR1 et SIGUSR2.
+    Il les interprète pour reconstituer les bits, puis les caractères.
+    Il affiche le message reçu à l’écran.
+
+🔹 Pourquoi utiliser des signaux ?
+
+L’intérêt est de communiquer sans socket ni mémoire partagée, en exploitant la gestion des signaux de Linux.
+
+#include <signal.h>
+
+int kill(pid_t pid, int sig);
+
+🔹 Arguments :
+
+    pid → Le PID (Process ID) du processus auquel on veut envoyer un signal.
+    sig → Le signal qu'on veut envoyer (ex: SIGUSR1, SIGUSR2, SIGINT, etc.).
+
+🔹 Valeur de retour :
+
+    0 en cas de succès.
+    -1 en cas d’erreur (ex: si le PID est invalide).
+n envoie SIGUSR1 si le bit est 0, SIGUSR2 si le bit est 1
