@@ -6,7 +6,7 @@
 /*   By: ramahrez <ramahrez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 21:18:08 by ramahrez          #+#    #+#             */
-/*   Updated: 2025/02/24 21:52:06 by ramahrez         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:21:29 by ramahrez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void ft_put_bit(char c, pid_t pid)
 			printf("1");
 			kill(pid, SIGUSR2);
 		}
-		usleep(1000);
+		usleep(2000);
 		i--;
 	}
 	printf("\n");
