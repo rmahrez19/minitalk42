@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   server.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramahrez <ramahrez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/24 19:06:52 by ramahrez          #+#    #+#             */
-/*   Updated: 2025/02/27 18:41:35 by ramahrez         ###   ########.fr       */
+/*   Created: 2025/02/27 15:19:27 by ramahrez          #+#    #+#             */
+/*   Updated: 2025/02/27 18:47:35 by ramahrez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/client.h"
+#ifndef SERVER_H
+#define SERVER_H
 
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <strings.h>
+#include "../libft/libft.h"
 
-
-
-void ft_error(void)
-{
-	ft_free();
-	ft_putstr_fd("Error :", 2);
-	exit(1);
-}
+#endif

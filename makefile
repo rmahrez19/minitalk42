@@ -7,6 +7,7 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 SRC_DIR     = src
 OBJ_DIR     = obj
 INC_DIR     = includes
+MKDIR       = mkdir -p   # Définir la commande mkdir pour créer des répertoires
 
 # Fichiers sources
 SRV_SRC     = $(SRC_DIR)/server.c $(SRC_DIR)/utils.c

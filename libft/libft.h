@@ -6,7 +6,7 @@
 /*   By: ramahrez <ramahrez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 12:20:58 by ramahrez          #+#    #+#             */
-/*   Updated: 2025/02/19 19:59:37 by ramahrez         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:47:23 by ramahrez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # include <limits.h>
 # include <stdint.h>
 # include <ctype.h>
+# include "color.h"
 # include "gnl/get_next_line_bonus.h"
+#include "printf/ft_printf.h"
 
 typedef struct s_list
 {

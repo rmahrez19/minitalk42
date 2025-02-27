@@ -6,77 +6,83 @@
 /*   By: ramahrez <ramahrez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:39:35 by ramahrez          #+#    #+#             */
-/*   Updated: 2025/02/26 19:52:25 by ramahrez         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:07:40 by ramahrez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <signal.h>
-#include <strings.h>
-#include "../libft/libft.h"
+#include "../includes/server.h"
 
-void sigint_handler(int signal)
+void	ft_put_message(char c)
 {
-    static char c = 0;
-    static int bit = 0;
+	static char	*msg = NULL;
+	char		*temp;
+	char		c_2[2];
 
-    if (signal == SIGUSR1)
-    {
-		c = c << 1;;
+	c_2[0] = c;
+	c_2[1] = '\0';
+	if (msg == NULL)
+		msg = ft_strdup(c_2);
+	else
+	{
+		temp = ft_strjoin(msg, c_2);
+		free(msg);
+		msg = temp;
 	}
-    else if (signal == SIGUSR2)
-    {
-		c = (c << 1) | 1;
-    }
-	if(bit < 7)
-    	bit++;
-    else
-    {
-        write(1, &c, 1);
-        c = 0;
-        bit = 0;
-    }
+	if (c == '\0')
+	{
+		ft_printf(MAGENTA "message👉 :");
+		ft_printf(GREEN "%s\n" RESET, msg);
+		free(msg);
+		msg = NULL;
+	}
 }
 
-//
+void	sigint_handler(int signal, siginfo_t *info, void *context)
+{
+	static char	c = 0;
+	static int	bit = 0;
+
+	(void)context;
+	if (signal == SIGUSR1)
+	{
+		c = c << 1;
+	}
+	else if (signal == SIGUSR2)
+	{
+		c = (c << 1) | 1;
+	}
+	if (bit < 7)
+		bit++;
+	else
+	{
+		ft_put_message(c);
+		bit = 0;
+		c = 0;
+	}
+	kill(info->si_pid, SIGUSR1);
+}
+
 void	set_signal_action(void)
 {
-	struct sigaction act;
+	struct sigaction	act;
 
-	ft_bzero(&act, sizeof(act));
-	act.sa_handler = &sigint_handler;
-
+	act.sa_sigaction = &sigint_handler;
+	act.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
-
-	// if(sig != 0)
-
 }
 
-int main(void)
+int	main(void)
 {
-	pid_t pid;
-	// char tab[9];
-	int i;
+	pid_t	pid;
+	int		i;
 
 	pid = getpid();
-	ft_putnbr_fd(pid, 0);
+	ft_printf(YELLOW "PID du SERVER 👉: " BLUE);
+	ft_printf("%d" RESET, pid);
 	write(1, "\n", 1);
 	i = 0;
 	set_signal_action();
-	while(1)
-	{
+	while (1)
 		pause();
-		// print_char(tab, &i);
-		// printf("%d", sig);
-	}
 }
-
-
-// int main(void)
-// {
-// 	printf("%d", ft_atoi_base("11001", "01"));
-// }

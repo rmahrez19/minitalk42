@@ -5,6 +5,7 @@ NAME    = libft.a
 
 SRC_DIR = .
 
+# Fichiers source de libft
 SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isascii.c ft_isalnum.c ft_isalpha.c \
       ft_isdigit.c ft_isprint.c ft_itoa.c ft_memcpy.c ft_memmove.c ft_memset.c \
       ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c \
@@ -15,13 +16,20 @@ SRC = ft_atoi.c ft_bzero.c ft_calloc.c ft_isascii.c ft_isalnum.c ft_isalpha.c \
       ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c \
       ft_lstiter_bonus.c ft_lstmap_bonus.c ft_free.c ft_atoi_base.c
 
-
+# Gestion de get_next_line
 GNL_DIR = gnl
 GNL_SRC = get_next_line_bonus.c
 
-OBJ     = $(addprefix $(SRC_DIR)/, $(SRC:.c=.o)) $(addprefix $(GNL_DIR)/, $(GNL_SRC:.c=.o))
+# Gestion de printf
+PRINTF_DIR = printf
+PRINTF_SRC = base.c hexa.c libft.c 
 
-HEADER  = libft.h $(GNL_DIR)/get_next_line_bonus.h
+# Création des fichiers objets
+OBJ     = $(addprefix $(SRC_DIR)/, $(SRC:.c=.o)) \
+          $(addprefix $(GNL_DIR)/, $(GNL_SRC:.c=.o)) \
+          $(addprefix $(PRINTF_DIR)/, $(PRINTF_SRC:.c=.o))
+
+HEADER  = libft.h $(GNL_DIR)/get_next_line_bonus.h $(PRINTF_DIR)/ft_printf.h
 
 # Couleurs
 RED     = \033[0;31m
@@ -41,6 +49,7 @@ $(NAME): $(OBJ)
 	@printf "$(YELLOW)Generating libft object... %-38.38s \r$(NC)" $@
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Création de la bibliothèque dynamique
 so: $(OBJ)
 	@echo "Creating dynamic library libft.so..."
 	$(CC) -nostartfiles -shared -o libft.so $(OBJ)
@@ -49,13 +58,13 @@ libft.so: so
 
 verbose: $(NAME)
 	@echo "$(GREEN)Compiling directories:$(NC)"
-	@$(foreach dir, $(SRC_DIR) $(BONUS_DIR) $(GNL_DIR), \
+	@$(foreach dir, $(SRC_DIR) $(GNL_DIR) $(PRINTF_DIR), \
 		echo "$(YELLOW)Compiling directory: $(dir)$(NC)"; \
 		$(MAKE) --no-print-directory all -C $(dir);)
 
 clean:
 	@echo "$(RED)Removing object files...$(NC)"
-	@rm -rf $(OBJ) $(OBJ_B) $(GNL_OBJ)
+	@rm -rf $(OBJ)
 
 fclean: clean
 	@echo "$(RED)Removing all generated files...$(NC)"
@@ -63,4 +72,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus so verbose
+.PHONY: all clean fclean re so verbose
