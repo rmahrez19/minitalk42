@@ -6,7 +6,7 @@
 /*   By: ramahrez <ramahrez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 21:18:08 by ramahrez          #+#    #+#             */
-/*   Updated: 2025/02/27 19:35:03 by ramahrez         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:19:35 by ramahrez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,11 @@ int	main(int ac, char **av)
 	}
 	signal(SIGUSR1, sigint_handler);
 	signal(SIGUSR2, sigint_handler);
-	ft_printf(YELLOW "%d", getpid());
 	pid = ft_atoi(av[1]);
 	if (pid <= 0)
-		ft_error();
+	{
+		ft_printf(RED "ERROR PID INVALID" RESET);
+		exit(0);
+	}
 	ft_put_str(av[2], pid);
 }

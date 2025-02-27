@@ -10,12 +10,12 @@ INC_DIR     = includes
 MKDIR       = mkdir -p   # Définir la commande mkdir pour créer des répertoires
 
 # Fichiers sources
-SRV_SRC     = $(SRC_DIR)/server.c $(SRC_DIR)/utils.c
-CLI_SRC     = $(SRC_DIR)/client.c $(SRC_DIR)/utils.c
+SRV_SRC     = $(SRC_DIR)/server.c
+CLI_SRC     = $(SRC_DIR)/client.c
 
 # Fichiers objets
-SRV_OBJ     = $(OBJ_DIR)/server.o $(OBJ_DIR)/utils.o
-CLI_OBJ     = $(OBJ_DIR)/client.o $(OBJ_DIR)/utils.o
+SRV_OBJ     = $(OBJ_DIR)/server.o
+CLI_OBJ     = $(OBJ_DIR)/client.o
 
 # Noms des exécutables
 SRV         = server
