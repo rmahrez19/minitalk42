@@ -6,7 +6,7 @@
 /*   By: ramahrez <ramahrez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:39:35 by ramahrez          #+#    #+#             */
-/*   Updated: 2025/02/27 19:07:40 by ramahrez         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:45:39 by ramahrez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,12 @@ void	set_signal_action(void)
 {
 	struct sigaction	act;
 
+		ft_memset(&act, 0, sizeof(act));
 	act.sa_sigaction = &sigint_handler;
 	act.sa_flags = SA_SIGINFO;
+
+	sigemptyset(&act.sa_mask);
+	
 	sigaction(SIGUSR1, &act, NULL);
 	sigaction(SIGUSR2, &act, NULL);
 }
